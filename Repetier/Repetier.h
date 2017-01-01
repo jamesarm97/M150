@@ -161,6 +161,7 @@ usage or for searching for memory induced errors. Switch it off for production, 
 #define CONTROLLER_SPARKLCD_ADAPTER 23
 #define CONTROLLER_ZONESTAR 24
 #define CONTROLLER_FELIX_DUE 405
+#define CONTROLLER_MAKRPANEL 25
 
 //direction flags
 #define X_DIRPOS 1

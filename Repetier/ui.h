@@ -2025,6 +2025,62 @@ inline void uiCheckSlowKeys(uint16_t &action) {}
 
 #endif // CONTROLLER_ZONESTAR
 
+#if FEATURE_CONTROLLER == CONTROLLER_MAKRPANEL // Melzi Makrpanel
+//#define UI_HAS_KEYS 1
+//#define UI_HAS_BACK_KEY 1
+#define UI_DISPLAY_CHARSET 1
+#define UI_COLS 20
+#define UI_ROWS 5
+#define SDSUPPORT 1
+//#define UI_KILL_PIN            76
+#define UI_ENCODER_A           11
+#define UI_ENCODER_B           10
+#define UI_ENCODER_CLICK       16
+#define UI_DELAYPERCHAR 50
+#define MAKRPANEL
+#define SDCARDDETECT -1 //53
+#define SDSS        30
+#define BEEPER 78
+#define LCD_CONTRAST 17
+#define UI_DISPLAY_TYPE DISPLAY_U8G
+//#define LCD_PIN_BL 15
+#define DOGLCD_A0  30
+#define DOGLCD_CS  29
+#define UI_LCD_WIDTH 128
+#define UI_LCD_HEIGHT 64
+#define U8GLIB_ST7565_NHD_C12864_HW_SPI
+
+#define UI_INVERT_MENU_DIRECTION false
+
+//select font size
+#define UI_FONT_6X10 //default font
+#ifdef UI_FONT_6X10
+#define UI_FONT_WIDTH 6
+#define UI_FONT_HEIGHT 10
+#define UI_FONT_SMALL_HEIGHT 7
+#define UI_FONT_DEFAULT repetier_6x10
+#define UI_FONT_SMALL repetier_5x7
+#define UI_FONT_SMALL_WIDTH 5 //smaller font for status display
+#undef UI_ANIMATION
+#define UI_ANIMATION 0  // Animations are too slow
+#endif
+
+#ifdef UI_MAIN
+void uiInitKeys() {
+  UI_KEYS_INIT_CLICKENCODER_LOW(UI_ENCODER_A, UI_ENCODER_B);
+  UI_KEYS_INIT_BUTTON_LOW(UI_ENCODER_CLICK);
+//  UI_KEYS_INIT_BUTTON_LOW(UI_KILL_PIN);
+}
+void uiCheckKeys(uint16_t &action) {
+  UI_KEYS_CLICKENCODER_LOW_REV(UI_ENCODER_A, UI_ENCODER_B);
+  UI_KEYS_BUTTON_LOW(UI_ENCODER_CLICK, UI_ACTION_OK);
+//  UI_KEYS_BUTTON_LOW(UI_KILL_PIN, UI_ACTION_KILL);
+}
+inline void uiCheckSlowEncoder() {}
+void uiCheckSlowKeys(uint16_t &action) {}
+#endif
+#endif // Controller 25
+
 #ifndef UI_HAS_I2C_ENCODER
 #define UI_HAS_I2C_ENCODER 0
 #endif

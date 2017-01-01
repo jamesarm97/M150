@@ -406,7 +406,7 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 #define UI_SERVO_CONTROL 0
 #define FAN_KICKSTART_TIME  200
 
-        #define FEATURE_WATCHDOG 0
+#define FEATURE_WATCHDOG 0
 
 // #################### Z-Probing #####################
 
@@ -469,7 +469,7 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 #define FEATURE_CHECKSUM_FORCED 0
 #define FEATURE_FAN_CONTROL 1
 #define FEATURE_FAN2_CONTROL 0
-#define FEATURE_CONTROLLER 0
+#define FEATURE_CONTROLLER CONTROLLER_MAKRPANEL
 #define ADC_KEYPAD_PIN -1
 #define LANGUAGE_EN_ACTIVE 1
 #define LANGUAGE_DE_ACTIVE 0
@@ -483,8 +483,8 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 #define LANGUAGE_CZ_ACTIVE 0
 #define LANGUAGE_PL_ACTIVE 0
 #define LANGUAGE_TR_ACTIVE 0
-#define UI_PRINTER_NAME "RepRap"
-#define UI_PRINTER_COMPANY "Home made"
+#define UI_PRINTER_NAME "M150"
+#define UI_PRINTER_COMPANY "Malyan"
 #define UI_PAGES_DURATION 4000
 #define UI_ANIMATION 0
 #define UI_SPEEDDEPENDENT_POSITIONING 0
