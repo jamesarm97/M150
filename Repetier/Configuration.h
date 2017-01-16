@@ -456,7 +456,7 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 #define AXISCOMP_TANXZ 0
 
 #ifndef SDSUPPORT  // Some boards have sd support on board. These define the values already in pins.h
-#define SDSUPPORT 0
+#define SDSUPPORT 1
 #undef SDCARDDETECT
 #define SDCARDDETECT -1
 #define SDCARDDETECTINVERTED 0
@@ -492,7 +492,7 @@ WARNING: Servos can draw a considerable amount of current. Make sure your system
 #define UI_AUTORETURN_TO_MENU_AFTER 30000
 #define FEATURE_UI_KEYS 0
 #define UI_ENCODER_SPEED 1
-#define UI_REVERSE_ENCODER 0
+#define UI_REVERSE_ENCODER 1
 #define UI_KEY_BOUNCETIME 10
 #define UI_KEY_FIRST_REPEAT 500
 #define UI_KEY_REDUCE_REPEAT 50

@@ -1994,29 +1994,29 @@ inline void uiInitKeys() {}
 
 // Read and decode ADC keypad (fast reads)
 void uiCheckKeys(uint16_t &action) {
-	struct {
-		uint16_t min;
-		uint16_t max;
-		uint16_t action;
-		} keys[] = {
-		{   300,   500, UI_ACTION_BACK           },    // Left
-		{   570,   870, UI_ACTION_PREVIOUS       },    // Up
-		{  1150,  1450, ADC_KEYPAD_CENTER_ACTION },    // Center
-		{  1900,  2200, UI_ACTION_OK             },    // Right
-		{  2670,  2870, UI_ACTION_NEXT           }     // Down
-	};
-	const uint8_t numOfKeys = sizeof(keys) / sizeof(keys[0]);
+  struct {
+    uint16_t min;
+    uint16_t max;
+    uint16_t action;
+  } keys[] = {
+    {   300,   500, UI_ACTION_BACK           },    // Left
+    {   570,   870, UI_ACTION_PREVIOUS       },    // Up
+    {  1150,  1450, ADC_KEYPAD_CENTER_ACTION },    // Center
+    {  1900,  2200, UI_ACTION_OK             },    // Right
+    {  2670,  2870, UI_ACTION_NEXT           }     // Down
+  };
+  const uint8_t numOfKeys = sizeof(keys) / sizeof(keys[0]);
 
-	extern volatile uint16_t osAnalogInputValues[ANALOG_INPUTS];
-	uint16_t adc = osAnalogInputValues[KEYPAD_ANALOG_INDEX] >> (ANALOG_REDUCE_BITS);
-	if (adc < 4000) {
-		for (int8_t i = 0; i < numOfKeys; ++i) {
-			if ((adc > keys[i].min) && (adc < keys[i].max)) {
-				action = keys[i].action;
-				return;
-			}
-		}
-	}
+  extern volatile uint16_t osAnalogInputValues[ANALOG_INPUTS];
+  uint16_t adc = osAnalogInputValues[KEYPAD_ANALOG_INDEX] >> (ANALOG_REDUCE_BITS);
+  if (adc < 4000) {
+    for (int8_t i = 0; i < numOfKeys; ++i) {
+      if ((adc > keys[i].min) && (adc < keys[i].max)) {
+        action = keys[i].action;
+        return;
+      }
+    }
+  }
 }
 
 // Read and decode ADC keypad (slow reads)
@@ -2026,29 +2026,34 @@ inline void uiCheckSlowKeys(uint16_t &action) {}
 #endif // CONTROLLER_ZONESTAR
 
 #if FEATURE_CONTROLLER == CONTROLLER_MAKRPANEL // Melzi Makrpanel
-//#define UI_HAS_KEYS 1
-//#define UI_HAS_BACK_KEY 1
+#define UI_HAS_KEYS 1
+#define UI_HAS_BACK_KEY 0
 #define UI_DISPLAY_CHARSET 1
 #define UI_COLS 20
 #define UI_ROWS 5
 #define SDSUPPORT 1
 //#define UI_KILL_PIN            76
-#define UI_ENCODER_A           11
-#define UI_ENCODER_B           10
-#define UI_ENCODER_CLICK       16
+#define UI_ENCODER_A           30
+#define UI_ENCODER_B           29
+#define UI_ENCODER_CLICK       28
 #define UI_DELAYPERCHAR 50
 #define MAKRPANEL
 #define SDCARDDETECT -1 //53
-#define SDSS        30
-#define BEEPER 78
-#define LCD_CONTRAST 17
+#define SDSS        31
+#define BEEPER      27
+#define LCD_CONTRAST 1
 #define UI_DISPLAY_TYPE DISPLAY_U8G
-//#define LCD_PIN_BL 15
-#define DOGLCD_A0  30
-#define DOGLCD_CS  29
+#define LCD_PIN_BL -1
 #define UI_LCD_WIDTH 128
 #define UI_LCD_HEIGHT 64
-#define U8GLIB_ST7565_NHD_C12864_HW_SPI
+
+// For software spi assign these definitions
+#define UI_DISPLAY_D4_PIN 11  //clock
+#define UI_DISPLAY_ENABLE_PIN 16 //enable
+#define UI_DISPLAY_RS_PIN  17 //cs
+
+// ST7920 with software SPI
+#define U8GLIB_ST7920
 
 #define UI_INVERT_MENU_DIRECTION false
 
@@ -2069,12 +2074,12 @@ inline void uiCheckSlowKeys(uint16_t &action) {}
 void uiInitKeys() {
   UI_KEYS_INIT_CLICKENCODER_LOW(UI_ENCODER_A, UI_ENCODER_B);
   UI_KEYS_INIT_BUTTON_LOW(UI_ENCODER_CLICK);
-//  UI_KEYS_INIT_BUTTON_LOW(UI_KILL_PIN);
+  //  UI_KEYS_INIT_BUTTON_LOW(UI_KILL_PIN);
 }
 void uiCheckKeys(uint16_t &action) {
   UI_KEYS_CLICKENCODER_LOW_REV(UI_ENCODER_A, UI_ENCODER_B);
   UI_KEYS_BUTTON_LOW(UI_ENCODER_CLICK, UI_ACTION_OK);
-//  UI_KEYS_BUTTON_LOW(UI_KILL_PIN, UI_ACTION_KILL);
+  //  UI_KEYS_BUTTON_LOW(UI_KILL_PIN, UI_ACTION_KILL);
 }
 inline void uiCheckSlowEncoder() {}
 void uiCheckSlowKeys(uint16_t &action) {}
@@ -2164,11 +2169,11 @@ void uiCheckSlowKeys(uint16_t &action) {}
 
 // Beeper methods
 #if BEEPER_TYPE==0
-  #define BEEP_SHORT {}
-  #define BEEP_LONG {}
+#define BEEP_SHORT {}
+#define BEEP_LONG {}
 #else
-  #define BEEP_SHORT beep(BEEPER_SHORT_SEQUENCE);
-  #define BEEP_LONG beep(BEEPER_LONG_SEQUENCE);
+#define BEEP_SHORT beep(BEEPER_SHORT_SEQUENCE);
+#define BEEP_LONG beep(BEEPER_LONG_SEQUENCE);
 #endif
 
 
